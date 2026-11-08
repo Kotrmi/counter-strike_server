@@ -20,7 +20,7 @@ RUN printf '%s\n' \
     > /etc/apt/sources.list && \
     dpkg --add-architecture i386 && \
     apt-get -o Acquire::Check-Valid-Until=false update && \
-    apt-get -qqy install lib32gcc1 curl libstdc++6:i386
+    apt-get -qqy install lib32gcc1 curl libstdc++6:i386 unzip
 
 # create directories
 WORKDIR /root
