@@ -8,9 +8,6 @@ permissions:
   contents: read
   packages: write
 
-network: host
-allow: network.host
-
 
 jobs:
   publish:
@@ -23,6 +20,8 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - uses: docker/build-push-action@v6
+        network: host
+        allow: network.host
         with:
           context: .
           push: true
