@@ -2,27 +2,30 @@ name: Publish container
 
 on:
   push:
-    branches: [master]
+    branches: [master, main]
 
 permissions:
   contents: read
   packages: write
-
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: docker/build-push-action@v7
         with:
           context: .
           push: true
-          tags: ghcr.io/kotrmi/counter-strike_server:latest
+          tags: |
+            ghcr.io/kotrmi/counter-strike_server:latest
+            ghcr.io/kotrmi/counter-strike_server:${{ github.sha }}
           network: host
           allow: network.host
