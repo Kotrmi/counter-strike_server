@@ -8,6 +8,10 @@ permissions:
   contents: read
   packages: write
 
+network: host
+allow: network.host
+
+
 jobs:
   publish:
     runs-on: ubuntu-latest
