@@ -16,7 +16,7 @@ ENV SV_LAN 0
 # install dependencies
 RUN dpkg --add-architecture i386
 RUN apt-get update && \
-    apt-get -qqy install lib32gcc1 curl
+    apt-get -qqy install lib32gcc1 curl libstdc++6:i386
 
 # create directories
 WORKDIR /root
