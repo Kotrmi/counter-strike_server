@@ -5,17 +5,22 @@ ARG BUILD_DATE
 ARG VCS_REF
 LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.vcs-ref=$VCS_REF \
-      org.label-schema.vcs-url="https://github.com/febLey/counter-strike_server"
+      org.label-schema.vcs-url="https://github.com/Kotrmi/counter-strike_server"
 
 # define default env variables
+
 ENV PORT 27015
 ENV MAP de_dust2
 ENV MAXPLAYERS 16
 ENV SV_LAN 0
 
 # install dependencies
-RUN dpkg --add-architecture i386
-RUN apt-get update && \
+RUN printf '%s\n' \
+    'deb http://archive.debian.org/debian stretch main contrib non-free' \
+    'deb http://archive.debian.org/debian-security stretch/updates main contrib non-free' \
+    > /etc/apt/sources.list && \
+    dpkg --add-architecture i386 && \
+    apt-get -o Acquire::Check-Valid-Until=false update && \
     apt-get -qqy install lib32gcc1 curl libstdc++6:i386
 
 # create directories
